@@ -5,10 +5,31 @@
   "main": "electron/main.js",
   "author": "PAN International for Telecom & IT (pan.sa)",
   "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "appId": "sa.pan.posawesome.desktop",
+    "productName": "POS Awesome Desktop",
+    "files": ["electron/**/*", "package.json", "node_modules/**/*"],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  },
   "dependencies": {
     "electron-store": "^10.0.1"
   },
   "devDependencies": {
-    "electron": "33.4.11"
+    "electron": "33.4.11",
+    "electron-builder": "^26.18.0"
   }
 }

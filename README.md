@@ -41,6 +41,16 @@ npx electron .
 عند أول تشغيل ستظهر شاشة الربط لإدخال عنوان سيرفر ERPNext (مثال: `https://pos.example.com`)
 وإنشاء كلمة مرور لحماية هذه الشاشة لاحقًا.
 
+## بناء نسخة تثبيت (exe) محليًا
+
+```bash
+npm install
+npm run build
+```
+
+ينتج ملف تثبيت NSIS داخل `dist/` (مثال: `POS Awesome Desktop Setup 1.0.0.exe`)، باستخدام نفس
+إصدار Electron المثبّت في `package.json`.
+
 ## نسخة جاهزة للتنصيب
 
 للحصول على نسخة بنيت مسبقًا (Windows، بلا الحاجة لـ Node.js) راجع صفحة
