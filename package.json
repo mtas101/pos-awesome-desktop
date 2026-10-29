@@ -1,0 +1,14 @@
+{
+  "name": "pos-awesome-desktop",
+  "version": "1.0.0",
+  "description": "Electron desktop wrapper for POS Awesome (Frappe/ERPNext POS) with a locked connection screen and an optional customer-facing second screen.",
+  "main": "electron/main.js",
+  "author": "PAN International for Telecom & IT (pan.sa)",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^10.0.1"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

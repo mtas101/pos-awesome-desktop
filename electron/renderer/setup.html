@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>POS Awesome Desktop</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+				--bg: #0f172a;
+				--panel: #111827;
+				--text: #e5e7eb;
+				--muted: #94a3b8;
+				--primary: #06b6d4;
+				--primary-strong: #0891b2;
+				--danger: #ef4444;
+				--shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+			}
+
+			* {
+				box-sizing: border-box;
+				font-family:
+					"Inter",
+					"Segoe UI",
+					system-ui,
+					-apple-system,
+					sans-serif;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				background:
+					radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.08), transparent 35%),
+					radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.08), transparent 30%), var(--bg);
+				color: var(--text);
+				padding: 24px;
+			}
+
+			.card {
+				width: min(680px, 100%);
+				background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				border-radius: 16px;
+				padding: 32px;
+				box-shadow: var(--shadow);
+				backdrop-filter: blur(8px);
+			}
+
+			h1 {
+				margin: 0 0 12px;
+				font-size: 28px;
+			}
+
+			p.description {
+				margin: 0 0 20px;
+				color: var(--muted);
+				line-height: 1.5;
+			}
+
+			label {
+				display: block;
+				font-weight: 600;
+				margin-bottom: 8px;
+			}
+
+			input[type="text"] {
+				width: 100%;
+				padding: 14px 16px;
+				border-radius: 12px;
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				background: rgba(255, 255, 255, 0.04);
+				color: var(--text);
+				font-size: 16px;
+			}
+
+			input[type="text"]:focus {
+				outline: 2px solid var(--primary);
+				border-color: var(--primary);
+				box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.25);
+			}
+
+			.actions {
+				display: flex;
+				gap: 12px;
+				margin-top: 18px;
+				flex-wrap: wrap;
+			}
+
+			button {
+				appearance: none;
+				border: none;
+				padding: 12px 16px;
+				border-radius: 12px;
+				font-weight: 700;
+				cursor: pointer;
+				transition:
+					transform 0.12s ease,
+					box-shadow 0.12s ease,
+					opacity 0.2s ease;
+				color: #0b172a;
+			}
+
+			button.primary {
+				background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+				box-shadow: 0 10px 30px rgba(6, 182, 212, 0.35);
+				color: #032026;
+			}
+
+			button.secondary {
+				background: rgba(255, 255, 255, 0.08);
+				color: var(--text);
+				border: 1px solid rgba(255, 255, 255, 0.08);
+			}
+
+			button.danger {
+				background: linear-gradient(135deg, var(--danger), #b91c1c);
+				color: #fffaf7;
+			}
+
+			button:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+			}
+
+			.status {
+				margin-top: 16px;
+				color: var(--muted);
+				min-height: 24px;
+			}
+
+			.badge {
+				display: inline-block;
+				padding: 6px 10px;
+				border-radius: 999px;
+				background: rgba(6, 182, 212, 0.12);
+				color: var(--text);
+				font-size: 13px;
+				margin-left: 8px;
+				border: 1px solid rgba(6, 182, 212, 0.25);
+			}
+
+			.hint {
+				margin-top: 18px;
+				color: var(--muted);
+				line-height: 1.4;
+			}
+
+			ul {
+				padding-left: 18px;
+				color: var(--muted);
+			}
+
+			/* القفل وكلمة المرور */
+			.hide { display: none !important; }
+			.lock-card { width: min(460px, 100%); text-align: center; font-family: "Segoe UI", Tahoma, sans-serif; }
+			.lock-card .description { text-align: center; }
+			.lock-card .actions { justify-content: center; }
+			.lock-icon { font-size: 44px; margin-bottom: 6px; }
+			input.pw {
+				width: 100%;
+				padding: 13px 16px;
+				margin-top: 10px;
+				border-radius: 12px;
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				background: rgba(255, 255, 255, 0.04);
+				color: var(--text);
+				font-size: 16px;
+				text-align: right;
+				font-family: "Segoe UI", Tahoma, sans-serif;
+			}
+			input.pw:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+			.pw-box {
+				margin-top: 18px;
+				padding: 14px 16px;
+				border-radius: 12px;
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				background: rgba(255, 255, 255, 0.03);
+				text-align: right;
+				font-family: "Segoe UI", Tahoma, sans-serif;
+			}
+			.pw-box b { font-size: 15px; }
+			.pw-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+			.pw-row input.pw { flex: 1 1 160px; width: auto; }
+			.pw-row button { margin-top: 10px; }
+
+			/* مفتاح شاشة العميل */
+			.cd-row {
+				direction: rtl;
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				margin: 16px 0 0;
+				padding: 14px 16px;
+				border-radius: 12px;
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				background: rgba(255, 255, 255, 0.04);
+				cursor: pointer;
+				font-weight: 400;
+				font-family: "Segoe UI", Tahoma, sans-serif;
+			}
+			.cd-text { flex: 1; text-align: right; }
+			.cd-text b { display: block; font-size: 15px; margin-bottom: 4px; }
+			.cd-text small { color: var(--muted); font-size: 13px; line-height: 1.5; }
+			.cd-row input { position: absolute; opacity: 0; pointer-events: none; }
+			.cd-switch {
+				position: relative;
+				flex: none;
+				width: 52px;
+				height: 28px;
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.18);
+				transition: background 0.2s;
+			}
+			.cd-switch::after {
+				content: "";
+				position: absolute;
+				top: 3px;
+				right: 3px;
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				background: #fff;
+				transition: right 0.2s;
+			}
+			.cd-row input:checked + .cd-switch { background: #22c55e; }
+			.cd-row input:checked + .cd-switch::after { right: 27px; }
+			.cd-row input:focus-visible + .cd-switch { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+			@media (max-width: 640px) {
+				.card {
+					padding: 20px;
+				}
+				h1 {
+					font-size: 22px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- قفل شاشة الربط -->
+		<div class="card lock-card" id="lock-card" dir="rtl">
+			<div class="lock-icon" aria-hidden="true">🔒</div>
+			<h1 id="lock-title">شاشة الإعدادات مقفلة</h1>
+			<p class="description" id="lock-desc">أدخل كلمة المرور لتعديل عنوان السيرفر وإعداد شاشة العميل.</p>
+			<form id="lock-form" autocomplete="off">
+				<input id="lock-pass" type="password" class="pw" placeholder="كلمة المرور" required />
+				<input id="lock-pass2" type="password" class="pw hide" placeholder="تأكيد كلمة المرور" />
+				<div class="actions">
+					<button class="primary" type="submit" id="lock-btn">فتح</button>
+					<button class="secondary" type="button" id="lock-back">رجوع لنقطة البيع</button>
+				</div>
+			</form>
+			<div class="status" id="lock-status"></div>
+		</div>
+
+		<div class="card hide" id="main-card">
+			<h1>POS Awesome Desktop</h1>
+			<p class="description">
+				POS Awesome Desktop needs your server URL to launch. Enter your ERPNext / POS Awesome server
+				URL below; we will automatically add the <code>/app/posapp</code> path and save the URL
+				locally for the next startup.
+			</p>
+
+			<form id="server-form">
+				<label for="server-url">Server URL</label>
+				<input
+					id="server-url"
+					type="text"
+					name="server-url"
+					placeholder="https://pos.example.com"
+					autocomplete="off"
+					required
+				/>
+				<label class="cd-row" for="customer-display">
+					<span class="cd-text">
+						<b>شاشة العميل (الشاشة الإضافية)</b>
+						<small>عند التفعيل يظهر زر فتح/إغلاق شاشة العميل في نقطة البيع، وعند التعطيل يختفي الزر.</small>
+					</span>
+					<input id="customer-display" type="checkbox" role="switch" />
+					<span class="cd-switch" aria-hidden="true"></span>
+				</label>
+				<div class="actions">
+					<button class="primary" type="submit">Save &amp; Launch</button>
+					<button class="secondary" type="button" id="open-saved">Open saved server</button>
+					<button class="danger" type="button" id="reset-server">Clear saved URL</button>
+				</div>
+			</form>
+
+			<div class="status" id="status">Checking saved server&hellip;</div>
+
+			<!-- تغيير كلمة مرور شاشة الإعدادات -->
+			<form id="pw-form" class="pw-box" dir="rtl" autocomplete="off">
+				<b>تغيير كلمة مرور شاشة الإعدادات</b>
+				<div class="pw-row">
+					<input id="pw-new" type="password" class="pw" placeholder="كلمة المرور الجديدة" required />
+					<input id="pw-new2" type="password" class="pw" placeholder="تأكيد كلمة المرور" required />
+					<button class="secondary" type="submit">حفظ كلمة المرور</button>
+				</div>
+				<div class="status" id="pw-status"></div>
+			</form>
+
+			<div class="hint">
+				<ul>
+					<li>
+						Example: <strong>https://yourdomain.com</strong> (we will append
+						<code>/app/posapp</code>).
+					</li>
+					<li>The saved URL is stored in IndexedDB plus disk for offline caching.</li>
+					<li>Open settings again using the <em>Change server</em> option in the app menu.</li>
+				</ul>
+			</div>
+		</div>
+		<script>
+			const statusEl = document.getElementById("status");
+			const input = document.getElementById("server-url");
+			const openSaved = document.getElementById("open-saved");
+			const resetButton = document.getElementById("reset-server");
+
+			function setStatus(text, tone = "muted") {
+				statusEl.textContent = text;
+				statusEl.style.color = tone === "error" ? "var(--danger)" : "var(--muted)";
+			}
+
+			async function hydrate() {
+				const saved = await window.electronAPI.getServerUrl();
+				if (saved) {
+					input.value = saved;
+					setStatus(`Saved server: ${saved}`);
+				} else {
+					setStatus("No server saved yet.");
+				}
+			}
+
+			document.getElementById("server-form").addEventListener("submit", async (event) => {
+				event.preventDefault();
+				const raw = input.value.trim();
+				setStatus("Validating URL...");
+				try {
+					const normalized = await window.electronAPI.setServerUrl(raw);
+					setStatus(`Launching ${normalized}`);
+				} catch (error) {
+					setStatus(error?.message || "Invalid URL", "error");
+				}
+			});
+
+			openSaved.addEventListener("click", async () => {
+				const result = await window.electronAPI.retryLoad();
+				if (!result?.launched) {
+					setStatus("No saved server found.", "error");
+				}
+			});
+
+			resetButton.addEventListener("click", async () => {
+				await window.electronAPI.resetServer();
+				input.value = "";
+				setStatus("Saved server cleared.");
+			});
+
+			hydrate();
+
+			// مفتاح شاشة العميل: يُحفظ فور تغييره
+			const cdToggle = document.getElementById("customer-display");
+			(async () => {
+				try {
+					cdToggle.checked = (await window.electronAPI.getCustomerDisplay()) !== false;
+				} catch (e) {
+					cdToggle.checked = true;
+				}
+			})();
+			cdToggle.addEventListener("change", async () => {
+				const on = cdToggle.checked;
+				try {
+					await window.electronAPI.setCustomerDisplay(on);
+					setStatus(on ? "تم تفعيل شاشة العميل" : "تم تعطيل شاشة العميل");
+				} catch (e) {
+					cdToggle.checked = !on;
+					setStatus(cleanErr(e), "error");
+				}
+			});
+
+			// ---------- القفل بكلمة مرور ----------
+			function cleanErr(e) {
+				const m = (e && e.message) || String(e || "");
+				return m.replace(/^Error invoking remote method '[^']+':\s*(Error:\s*)?/, "");
+			}
+			const lockCard = document.getElementById("lock-card");
+			const mainCard = document.getElementById("main-card");
+			const lockForm = document.getElementById("lock-form");
+			const lockPass = document.getElementById("lock-pass");
+			const lockPass2 = document.getElementById("lock-pass2");
+			const lockStatus = document.getElementById("lock-status");
+			const lockBack = document.getElementById("lock-back");
+			let creating = false;
+
+			function showMain() {
+				lockCard.classList.add("hide");
+				mainCard.classList.remove("hide");
+				lockPass.value = "";
+				lockPass2.value = "";
+			}
+
+			(async () => {
+				const st = await window.electronAPI.setupLockState();
+				const saved = await window.electronAPI.getServerUrl();
+				if (!saved) lockBack.classList.add("hide");
+				if (st.unlocked) return showMain();
+				if (!st.hasPassword) {
+					creating = true;
+					document.getElementById("lock-title").textContent = "إنشاء كلمة مرور لشاشة الإعدادات";
+					document.getElementById("lock-desc").textContent =
+						"لحماية عنوان السيرفر وإعداد شاشة العميل، أنشئ كلمة مرور (4 أحرف على الأقل). ستُطلب في كل مرة تُفتح فيها هذه الشاشة.";
+					lockPass2.classList.remove("hide");
+					lockPass2.required = true;
+					document.getElementById("lock-btn").textContent = "حفظ ومتابعة";
+				}
+				lockPass.focus();
+			})();
+
+			lockForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+				lockStatus.style.color = "var(--muted)";
+				lockStatus.textContent = "";
+				try {
+					if (creating) {
+						if (lockPass.value !== lockPass2.value) throw new Error("كلمتا المرور غير متطابقتين");
+						await window.electronAPI.setupCreatePassword(lockPass.value);
+					} else {
+						await window.electronAPI.setupUnlock(lockPass.value);
+					}
+					showMain();
+				} catch (e) {
+					lockStatus.style.color = "var(--danger)";
+					lockStatus.textContent = cleanErr(e);
+					lockPass.select();
+				}
+			});
+
+			lockBack.addEventListener("click", () => window.electronAPI.retryLoad());
+
+			document.getElementById("pw-form").addEventListener("submit", async (event) => {
+				event.preventDefault();
+				const a = document.getElementById("pw-new");
+				const b = document.getElementById("pw-new2");
+				const s = document.getElementById("pw-status");
+				try {
+					if (a.value !== b.value) throw new Error("كلمتا المرور غير متطابقتين");
+					await window.electronAPI.setupChangePassword(a.value);
+					a.value = "";
+					b.value = "";
+					s.style.color = "#22c55e";
+					s.textContent = "تم تغيير كلمة المرور";
+				} catch (e) {
+					s.style.color = "var(--danger)";
+					s.textContent = cleanErr(e);
+				}
+			});
+		</script>
+	</body>
+</html>
