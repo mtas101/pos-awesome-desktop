@@ -1,6 +1,10 @@
+<div align="center">
+
 # POS Awesome Desktop
 
 ![PAN](logo.png)
+
+</div>
 
 غلاف Electron لنقطة بيع **POS Awesome** (Frappe / ERPNext)، مع شاشة ربط سيرفر مقفلة بكلمة مرور،
 ودعم شاشة عميل إضافية (ثانية) عبر تطبيق **PAN Customer Display**.
